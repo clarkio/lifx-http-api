@@ -223,11 +223,11 @@ Client.prototype.setState = function (selector, settings, cb) {
  * @param {function} cb
  * @returns {*} either the promise or nothing
  */
-Client.prototype.setDelta = function(selector, settings, cb) {
+Client.prototype.setDelta = function (selector, settings, cb) {
     var deferred = Q.defer();
 
     selector = selector || 'all';
-    if(!utils.verifySelector(selector)) {
+    if (!utils.verifySelector(selector)) {
         throw new Error('Selector is not valid.');
     }
 
@@ -236,9 +236,8 @@ Client.prototype.setDelta = function(selector, settings, cb) {
         url: 'lights/' + selector + '/state/delta',
         body: settings,
         method: 'POST'
-    }, function(err, data) {
-        if (err) deferred.reject(err);
-        else deferred.resolve(data);
+    }, function (err, data) {
+        if (err) deferred.reject(err);else deferred.resolve(data);
     });
 
     return deferred.promise.nodeify(cb);
