@@ -217,7 +217,7 @@ Client.prototype.setState = function(selector, settings, cb) {
 };
 
 /**
- * Sets a sets to all or a specific light.
+ * Changes hue based on degree delta for all lights or a specific light.
  *
  * @param {string} selector
  * @param {object} settings
