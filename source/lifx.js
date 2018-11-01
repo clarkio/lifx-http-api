@@ -217,6 +217,35 @@ Client.prototype.setState = function(selector, settings, cb) {
 };
 
 /**
+ * Sets a sets to all or a specific light.
+ *
+ * @param {string} selector
+ * @param {object} settings
+ * @param {function} cb
+ * @returns {*} either the promise or nothing
+ */
+Client.prototype.setDelta = function(selector, settings, cb) {
+    var deferred = Q.defer();
+
+    selector = selector || 'all';
+    if(!utils.verifySelector(selector)) {
+        throw new Error('Selector is not valid.');
+    }
+
+    settings = settings || {};
+    this.send({
+        url: 'lights/' + selector + '/state/delta',
+        body: settings,
+        method: 'POST'
+    }, function(err, data) {
+        if (err) deferred.reject(err);
+        else deferred.resolve(data);
+    });
+
+    return deferred.promise.nodeify(cb);
+};
+
+/**
  * Sets multiple states at once.
  *
  * @param {object} settings
